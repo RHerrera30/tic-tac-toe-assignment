@@ -62,15 +62,7 @@ void TicTacToe::setUpBoard()
     // then we need to setup our 3x3 array in _grid with the correct position of the square, and load the "square.png" sprite for each square
     // we will use the initHolder function on each square to do this
      
-    const float tile = 100.0f;          // 100 for 100 pixels square 
-    const ImVec2 origin(100.0f,100.0f);
-
-    // for(int y = 0; y < 3; y++){
-    //     for(int x = 0; x < 3; x++){
-    //         ImVec2 pos (origin.x + x*tile, origin.y + y * tile);
-    //         _grid[x][y].initHolder(pos,"square.png",x,y);
-    //     }
-    // }
+    const float tile = 100.0f; //square sprite size
 
     for(int x = 0; x < 3; x++)
     {
