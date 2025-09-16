@@ -83,6 +83,13 @@ void TicTacToe::setUpBoard()
 //
 bool TicTacToe::actionForEmptyHolder(BitHolder *holder)
 {
+
+    //If there's already a winner, no more actionForEmptyHolder!
+    if(checkForWinner() != nullptr)
+    {
+        return false;
+    }
+
     // 1) Guard clause: if holder is nullptr, fail fast.
     //    (Beginner hint: always check pointers before using them.)
     //    if (!holder) return false;
@@ -133,6 +140,7 @@ void TicTacToe::stopGame()
 {
     // clear out the board
     // loop through the 3x3 array and call destroyBit on each square
+    //Clean up memory here
     for(int y = 0; y < 3; y++)
     {
         for(int x = 0; x < 3; x++)
@@ -320,27 +328,7 @@ void TicTacToe::setStateString(const std::string &s)
     // loop through the 3x3 array and set each square accordingly
     // the string should always be valid, so you don't need to check its length or contents
     // but you can assume it will always be 9 characters long and only contain '0', '1', or '2'
-    for(int i = 0; i < 9; i++)
-    {
-        int y = i / 3;
-        int x = i % 3;
 
-        int playerNumber = s[i] - '0';
-
-        if(playerNumber == 0)
-        {
-            _grid[y][x].setBit(nullptr);
-        } else
-        {
-            //String is +1, actual player number is -1
-            int internalPlayerNumber = playerNumber - 1;
-
-            Bit* piece = PieceForPlayer(internalPlayerNumber);
-
-            piece->setPosition(_grid[y][x].getPosition());
-            _grid[y][x].setBit(piece);
-        }
-    }
 }
 
 
