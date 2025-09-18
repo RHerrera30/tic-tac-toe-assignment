@@ -338,5 +338,102 @@ void TicTacToe::setStateString(const std::string &s)
 void TicTacToe::updateAI() 
 {
     // we will implement the AI in the next assignment!
+
+    // Extra credit /////////////////////////////////////
+    // std::string state = stateString();
+    // for(int i = 0; i< 9; i++)
+    // {
+    //     if(state[i] == '0')
+    //     {
+
+    //         actionForEmptyHolder(&_grid[i/3][i%3]);
+    //         endTurn();
+    //         return;
+    //     }
+    // }
+    ///////////////////////////////////////////////////
+
+    std::string state = stateString();
+
+    int bestMove = -1000;
+    int bestSquare = -1;
+    int _lookedAt = 0;
+
+    for(int i = 0; i< 9; i++)
+    {
+        if(state[i] == '0')
+        {
+            state[i] = '2';
+            int aiMove = -negamax(state, 0, HUMAN_PLAYER);
+            state[i] = '0';
+            if(aiMove > bestMove)
+            {
+                bestMove = aiMove;
+                bestSquare = i;
+            }
+        }
+    }
+
+    if(bestSquare != -1)
+    {
+        actionForEmptyHolder(&_grid[bestSquare/3][bestSquare%3]);
+        endTurn();
+    }
+
 }
 
+bool isAIBoardFull(const std::string& state)
+{
+    return (state.find('0')) == std::string::npos;
+}
+
+//This ain't done
+int checkForAIWinner(const std::string& state)
+{
+    //INPUT TRIPLES
+    static const int winningTriples[8][3];
+
+    for(int i = 0; i < 8; i++)
+    {
+        const int *triple = winningTriples[i];
+        char player = state[triple[0]];
+        if(player != '0' && player == state[triple[1]] && player == state[triple[3]])
+        {
+            return 10;
+        }
+
+    }
+    return 0;
+
+}
+
+int TicTacToe::negamax(std::string& state, int depth, int playerColor)
+{
+    int score = checkForAIWinner(state);
+    _lookedAt++;
+
+    if(score)
+    {
+        //a winning state here is a loss for the recursive parent
+        return -score;
+    }
+
+    if(isAIBoardFull(state))
+    {
+        return 0; //draw
+    }
+
+    int bestVal = -1000;
+
+    for(int i = 0; i < 9; i++)
+    {
+        if(state[i] == '0')
+        {
+            state[i] == playerColor == HUMAN_PLAYER ? '1' : '2';
+            bestVal = std::max(bestVal, -negamax(state, depth+1, -playerColor));
+            state[i] = '0';
+        }
+    }
+
+    return bestVal;
+}
