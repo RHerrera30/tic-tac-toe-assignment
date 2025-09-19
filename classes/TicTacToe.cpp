@@ -344,110 +344,110 @@ void TicTacToe::updateAI()
     // we will implement the AI in the next assignment!
 
     // Extra credit /////////////////////////////////////
-    // std::string state = stateString();
-    // for(int i = 0; i< 9; i++)
-    // {
-    //     if(state[i] == '0')
-    //     {
-
-    //         actionForEmptyHolder(&_grid[i/3][i%3]);
-    //         endTurn();
-    //         return;
-    //     }
-    // }
-    ///////////////////////////////////////////////////
-
     std::string state = stateString();
-
-    int bestMove = -1000;
-    int bestSquare = -1;
-    int _lookedAt = 0;
-
     for(int i = 0; i< 9; i++)
     {
         if(state[i] == '0')
         {
-            state[i] = '2';
-            int aiMove = -negamax(state, 0, HUMAN_PLAYER);
-            state[i] = '0';
-            if(aiMove > bestMove)
-            {
-                bestMove = aiMove;
-                bestSquare = i;
-            }
+
+            actionForEmptyHolder(&_grid[i/3][i%3]);
+            endTurn();
+            return;
         }
     }
-
-    if(bestSquare != -1)
-    {
-        actionForEmptyHolder(&_grid[bestSquare/3][bestSquare%3]);
-        endTurn();
-    }
-
 }
+    ///////////////////////////////////////////////////
 
-bool isAIBoardFull(const std::string& state)
-{
-    return (state.find('0')) == std::string::npos;
-}
+//     std::string state = stateString();
 
-//This ain't done
-int checkForAIWinner(const std::string& state)
-{
-    //INPUT TRIPLES
-    static const int winningTriples[8][3] =
-    {
-        {0,1,2},
-        {3,4,5},
-        {6,7,8},
-        {0,3,6},
-        {1,4,7},
-        {2,5,8},
-        {0,4,8},
-        {2,4,6}
-    };
+//     int bestMove = -1000;
+//     int bestSquare = -1;
+//     int _lookedAt = 0;
 
-    for(int i = 0; i < 8; i++)
-    {
-        const int *triple = winningTriples[i];
-        char player = state[triple[0]];
-        if(player != '0' && player == state[triple[1]] && player == state[triple[3]])
-        {
-            return 10;
-        }
+//     for(int i = 0; i< 9; i++)
+//     {
+//         if(state[i] == '0')
+//         {
+//             state[i] = '2';
+//             int aiMove = -negamax(state, 0, HUMAN_PLAYER);
+//             state[i] = '0';
+//             if(aiMove > bestMove)
+//             {
+//                 bestMove = aiMove;
+//                 bestSquare = i;
+//             }
+//         }
+//     }
 
-    }
-    return 0;
+//     if(bestSquare != -1)
+//     {
+//         actionForEmptyHolder(&_grid[bestSquare/3][bestSquare%3]);
+//         endTurn();
+//     }
 
-}
+// }
 
-int TicTacToe::negamax(std::string& state, int depth, int playerColor)
-{
-    int score = checkForAIWinner(state);
-    _lookedAt++;
+// bool isAIBoardFull(const std::string& state)
+// {
+//     return (state.find('0')) == std::string::npos;
+// }
 
-    if(score)
-    {
-        //a winning state here is a loss for the recursive parent
-        return -score;
-    }
+// //This ain't done
+// int checkForAIWinner(const std::string& state)
+// {
+//     //INPUT TRIPLES
+//     static const int winningTriples[8][3] =
+//     {
+//         {0,1,2},
+//         {3,4,5},
+//         {6,7,8},
+//         {0,3,6},
+//         {1,4,7},
+//         {2,5,8},
+//         {0,4,8},
+//         {2,4,6}
+//     };
 
-    if(isAIBoardFull(state))
-    {
-        return 0; //draw
-    }
+//     for(int i = 0; i < 8; i++)
+//     {
+//         const int *triple = winningTriples[i];
+//         char player = state[triple[0]];
+//         if(player != '0' && player == state[triple[1]] && player == state[triple[3]])
+//         {
+//             return 10;
+//         }
 
-    int bestVal = -1000;
+//     }
+//     return 0;
 
-    for(int i = 0; i < 9; i++)
-    {
-        if(state[i] == '0')
-        {
-            state[i] == playerColor == HUMAN_PLAYER ? '1' : '2';
-            bestVal = std::max(bestVal, -negamax(state, depth+1, -playerColor));
-            state[i] = '0';
-        }
-    }
 
-    return bestVal;
-}
+// int TicTacToe::negamax(std::string& state, int depth, int playerColor)
+// {
+//     int score = checkForAIWinner(state);
+//     _lookedAt++;
+
+//     if(score)
+//     {
+//         //a winning state here is a loss for the recursive parent
+//         return -score;
+//     }
+
+//     if(isAIBoardFull(state))
+//     {
+//         return 0; //draw
+//     }
+
+//     int bestVal = -1000;
+
+//     for(int i = 0; i < 9; i++)
+//     {
+//         if(state[i] == '0')
+//         {
+//             state[i] == playerColor == HUMAN_PLAYER ? '1' : '2';
+//             bestVal = std::max(bestVal, -negamax(state, depth+1, -playerColor));
+//             state[i] = '0';
+//         }
+//     }
+
+//     return bestVal;
+// }
