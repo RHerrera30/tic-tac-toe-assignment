@@ -74,6 +74,10 @@ void TicTacToe::setUpBoard()
         }
     }
 
+    if(gameHasAI())
+    {
+        setAIPlayer(AI_PLAYER);
+    }
     // finally we should call startGame to get everything going
     startGame();
 }
@@ -391,7 +395,17 @@ bool isAIBoardFull(const std::string& state)
 int checkForAIWinner(const std::string& state)
 {
     //INPUT TRIPLES
-    static const int winningTriples[8][3];
+    static const int winningTriples[8][3] =
+    {
+        {0,1,2},
+        {3,4,5},
+        {6,7,8},
+        {0,3,6},
+        {1,4,7},
+        {2,5,8},
+        {0,4,8},
+        {2,4,6}
+    };
 
     for(int i = 0; i < 8; i++)
     {
