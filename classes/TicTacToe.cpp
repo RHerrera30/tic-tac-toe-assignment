@@ -74,6 +74,10 @@ void TicTacToe::setUpBoard()
         }
     }
 
+    if(gameHasAI())
+    {
+        setAIPlayer(AI_PLAYER);
+    }
     // finally we should call startGame to get everything going
     startGame();
 }
@@ -337,6 +341,15 @@ void TicTacToe::setStateString(const std::string &s)
 //
 void TicTacToe::updateAI() 
 {
-    // we will implement the AI in the next assignment!
-}
+    std::string state = stateString();
+    for(int i = 0; i< 9; i++)
+    {
+        if(state[i] == '0')
+        {
 
+            actionForEmptyHolder(&_grid[i/3][i%3]);
+            endTurn();
+            return;
+        }
+    }
+}
