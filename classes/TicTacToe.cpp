@@ -74,10 +74,10 @@ void TicTacToe::setUpBoard()
         }
     }
 
-    if(gameHasAI())
-    {
-        setAIPlayer(AI_PLAYER);
-    }
+    // if(gameHasAI())
+    // {
+    //     setAIPlayer(AI_PLAYER);
+    // }
     // finally we should call startGame to get everything going
     startGame();
 }
