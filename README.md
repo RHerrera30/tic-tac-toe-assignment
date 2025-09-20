@@ -5,4 +5,5 @@ Mine's so ugly that I couldn't figure out why it wasn't working for a long time,
 checkForDraw was also not difficult, I would just check if there was a winner first and then loop through my board to see if any squares were empty.
 stateString was similar to other methods in that I just had to loop through and look at every square in my board to then assign it a value in my stateString.
 I was hoping I would be able to turn this in with negamaxing for the AI, but I wasn't able to get it working, so the updateAI method just fills the next empty space instead.
+After failing to figure out negamaxing, I just added a button to activate the simple game AI. 
 I think the initial assignment snowballed really well after I was able to get the board set up, but I feel like I hit another roadblock with the AI. The terrible highs and lows of computer programming!
