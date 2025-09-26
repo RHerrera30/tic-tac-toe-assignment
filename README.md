@@ -1,0 +1,3 @@
+The AI in this program uses updateAI() to call the negamax function at each available square to check the score of every possible move by the AI and the human player from the current board state.
+It first checks if the current state of the board has a winner or is drawn, then places a piece for the current player, then calls negamax for the next player to return the best possible move for the next player, and does so recursively til it reaches a terminal board.
+A score is assigned depending on who won at each terminal board, and the score is passed back through the recursion with its value being flipped at each level.
