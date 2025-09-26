@@ -347,14 +347,18 @@ void TicTacToe::updateAI()
 
     int bestMove = -1000;
     int bestSquare = -1;
-    int _lookedAt = 0;
 
+    //For each square on the board, see if the AI can put a piece there.
     for(int i = 0; i< 9; i++)
     {
+        //If AI can place a piece in that square, place piece.
         if(state[i] == '0')
         {
+            
             state[i] = '2';
+            //Call -negamax to return whether this move by the AI is better than the current best move 
             int aiMove = -negamax(state, 0, HUMAN_PLAYER);
+            //Revert the move made by AI
             state[i] = '0';
             
             if(aiMove > bestMove)
@@ -365,6 +369,7 @@ void TicTacToe::updateAI()
         }
     }
 
+    //After finding the best move, have the AI place its piece in the best square.
     if(bestSquare != -1)
     {
         actionForEmptyHolder(&_grid[bestSquare/3][bestSquare%3]);
@@ -380,7 +385,6 @@ bool isAIBoardFull(const std::string& state)
 //This ain't done
 int checkForAIWinner(const std::string& state)
 {
-    //INPUT TRIPLES
     static const int winningTriples[8][3] =
     {
         {0,1,2},
@@ -393,6 +397,7 @@ int checkForAIWinner(const std::string& state)
         {2,4,6}
     };
 
+    //Loop to check each triple for a winner
     for(int i = 0; i < 8; i++)
     {
         const int *triple = winningTriples[i];
@@ -409,8 +414,8 @@ int checkForAIWinner(const std::string& state)
 
 int TicTacToe::negamax(std::string& state, int depth, int playerColor)
 {
+    //Checks if there is already a winner on the board
     int score = checkForAIWinner(state);
-    _lookedAt++;
 
     if(score)
     {
@@ -425,12 +430,17 @@ int TicTacToe::negamax(std::string& state, int depth, int playerColor)
 
     int bestVal = -1000;
 
+
+    //For each square on the board, see if the AI can put a piece there.
     for(int i = 0; i < 9; i++)
     {
+        //If a square is open, place the piece of the current player
         if(state[i] == '0')
         {
             state[i] = (playerColor == HUMAN_PLAYER) ? '1' : '2';
+            //Set the next player
             int nextPlayer = (playerColor == HUMAN_PLAYER) ? AI_PLAYER : HUMAN_PLAYER;
+            //Call -negamax to return if the next optimal move is good or bad for the current player
             int val = -negamax(state, depth+1, nextPlayer);
             state[i] = '0';
 
